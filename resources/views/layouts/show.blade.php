@@ -6,7 +6,7 @@
                 {{ $coin['name'] }} ({{ $coin['symbol'] }})
             </h2>
             <a href="{{ route('home') }}" 
-            class="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md text-sm font-medium transition">
+            class="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md text-xs font-medium transition">
                 ← Volver
             </a>
         </div>
