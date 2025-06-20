@@ -15,6 +15,16 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('watchlist.index')" :active="request()->routeIs('watchlist.*')">
+                        {{ __('Watchlist') }}
+                    </x-nav-link>
+
+                    @if(auth()->user()->isPro())
+                        <x-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
+                            {{ __('Cartera') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -70,6 +80,16 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('watchlist.index')" :active="request()->routeIs('watchlist.*')">
+                {{ __('Watchlist') }}
+            </x-responsive-nav-link>
+
+            @if(auth()->user()->isPro())
+                <x-responsive-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
+                    {{ __('Cartera') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
