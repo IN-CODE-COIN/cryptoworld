@@ -7,18 +7,6 @@ use Illuminate\Support\Facades\Http;
 
 class CryptoController extends Controller
 {
-    public function index()
-    {
-        $response = Http::withHeaders([
-            'x-access-token' => env('COINRANKING_API_KEY')])
-            ->get('https://api.coinranking.com/v2/coins',[ 'limit' => 10,]);
-        $coins = $response->json()['data']['coins'];
-
-        return view('layouts.home', [
-            'topCryptos' => $coins,
-        ]);
-    }
-
     public function search(Request $request)
     {
         $query = $request->input('query');
@@ -37,4 +25,18 @@ class CryptoController extends Controller
             'topCryptos' => $topCoins,
         ]);
     }
+
+    public function show($uuid)
+    {
+        $response = Http::withHeaders([
+            'x-access-token' => env('COINRANKING_API_KEY')
+        ])->get("https://api.coinranking.com/v2/coin/{$uuid}");
+
+        $coin = $response->json()['data']['coin'];
+
+        return view('layouts.show', [
+            'coin' => $coin,
+        ]);
+    }
+
 }

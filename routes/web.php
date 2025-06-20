@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CryptoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,9 +24,15 @@ Route::get('/wallet', function () {
     return 'Página de cartera';
 })->middleware(['auth'])->name('wallet.index');
 
+//* Página de busqueda de criptomonedas *//
 Route::get('/buscar-crypto', [CryptoController::class, 'search'])
     ->name('crypto.search')
     ->middleware('auth');
+
+//* Página de detalles cryptomonedas *//
+Route::get('/home/{uuid}', [CryptoController::class, 'show'])
+    ->middleware('auth')
+    ->name('crypto.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
