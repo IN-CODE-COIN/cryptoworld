@@ -11,19 +11,16 @@ class CryptoController extends Controller
     {
         $query = $request->input('query');
 
-        $response = Http::Http::withHeaders([
+        $response = Http::withHeaders([
             'x-access-token' => env('COINRANKING_API_KEY')])
-            ->get('https://api.coinranking.com/v2/coins?search=' . $query);
+            ->get('https://api.coinranking.com/v2/coins', [
+                'search' => $query,
+                'limit' => 1
+            ]);
 
         $coin = collect($response->json()['data']['coins'])->first();
 
-        $topCoins = Http::get('https://api.coinranking.com/v2/coins', ['limit' => 10])
-            ->json()['data']['coins'];
-
-        return view('layouts.home', [
-            'crypto' => $coin,
-            'topCryptos' => $topCoins,
-        ]);
+        return redirect()->route('crypto.show', ['uuid' => $coin['uuid']]);
     }
 
     public function show($uuid)
@@ -38,5 +35,35 @@ class CryptoController extends Controller
             'coin' => $coin,
         ]);
     }
+
+    public function autocomplete(Request $request)
+    {
+        $query = $request->input('query');
+
+        if (!$query) {
+            return response()->json([]);
+        }
+
+        $response = Http::withHeaders([
+            'x-access-token' => env('COINRANKING_API_KEY'),
+        ])->get('https://api.coinranking.com/v2/coins', [
+            'search' => $query,
+            'limit' => 5,
+        ]);
+
+        $coins = $response->json()['data']['coins'];
+
+        $results = array_map(function ($coin) {
+            return [
+                'uuid' => $coin['uuid'],
+                'name' => $coin['name'],
+                'symbol' => $coin['symbol'],
+                'iconUrl' => $coin['iconUrl'],
+            ];
+        }, $coins);
+
+        return response()->json($results);
+    }
+
 
 }

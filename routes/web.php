@@ -34,6 +34,11 @@ Route::get('/home/{uuid}', [CryptoController::class, 'show'])
     ->middleware('auth')
     ->name('crypto.show');
 
+//* Ruta de autocompletado *//
+Route::get('/crypto/autocomplete', [CryptoController::class, 'autocomplete'])
+    ->middleware('auth')
+    ->name('crypto.autocomplete');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
