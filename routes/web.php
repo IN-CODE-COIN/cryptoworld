@@ -23,6 +23,9 @@ Route::get('/wallet', function () {
     return 'Página de cartera';
 })->middleware(['auth'])->name('wallet.index');
 
+Route::get('/buscar-crypto', [CryptoController::class, 'search'])
+    ->name('crypto.search')
+    ->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
