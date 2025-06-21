@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Http;
 
 class WatchlistController extends Controller
 {
+
+    use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
     public function index()
     {
         $watchlist = Auth::user()->watchlist;
@@ -27,7 +30,7 @@ class WatchlistController extends Controller
         if ($exists) {
             return redirect()->back()->with('warning', 'Esta criptomoneda ya está en tu watchlist.');
         }
-        
+
         $watchlist = new Watchlist([
             'coin_uuid' => $request->uuid,
             'name' => $request->name,
