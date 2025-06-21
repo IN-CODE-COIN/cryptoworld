@@ -7,9 +7,9 @@ use App\Http\Controllers\WatchlistController;
 use App\Http\Controllers\PricingController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('home');
 
 //* Página de inicio *//
 Route::get('/home', [HomeController::class, 'index'])
@@ -51,10 +51,6 @@ Route::middleware(['auth'])->group(function () {
 //* Rutas del Pricing *//
 Route::get('/pricing', [PricingController::class, 'show'])->name('pricing.index');
 Route::post('/start-trial', [PricingController::class, 'startTrial'])->middleware('auth')->name('start.trial');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
