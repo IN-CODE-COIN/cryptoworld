@@ -46,6 +46,12 @@
                 {{ session('success') }}
             </div>
         @endif
+
+        @if(session('warning'))
+            <div class="mb-4 text-sm text-yellow-600 bg-yellow-100 px-4 py-2 rounded">
+                {{ session('warning') }}
+            </div>
+        @endif
         {{-- Sección destacada: Precio y cambio --}}
         <div class="text-center mb-8">
             <p class="text-4xl font-bold text-gray-900">

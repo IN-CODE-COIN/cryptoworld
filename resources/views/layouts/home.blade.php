@@ -12,6 +12,12 @@
                 {{ session('success') }}
             </div>
         @endif
+
+        @if(session('warning'))
+            <div class="mb-4 text-sm text-yellow-600 bg-yellow-100 px-4 py-2 rounded">
+                {{ session('warning') }}
+            </div>
+        @endif
         <h3 class="text-2xl font-bold my-4 text-center">Buscar Criptomoneda</h3>
 
         <form action="{{ route('crypto.search') }}" method="GET" class="relative flex items-center space-x-4 mb-8">

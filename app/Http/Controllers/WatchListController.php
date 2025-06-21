@@ -23,6 +23,12 @@ class WatchlistController extends Controller
     {
         $user = Auth::user();
 
+        $count = $user->watchlist()->count();
+
+        if ($count >= 5 && $user->rol !== 'pro') {
+            return redirect()->back()->with('warning', 'Has alcanzado el límite de criptomonedas en tu watchlist. Actualiza tu cuenta a premium para aumentar tu límite.');
+        }
+
         $exists = $user->watchlist()
             ->where('coin_uuid', $request->uuid)
             ->exists();
