@@ -27,7 +27,7 @@
                         <th class="px-4 py-2">Símbolo</th>
                         <th class="px-4 py-2">Precio</th>
                         <th class="px-4 py-2">Variación</th>
-                        <th class="px-4 py-2">Market Cap</th>
+                        <th class="px-4 py-2">Capitalización Mercado</th>
                         <th class="px-4 py-2">Acciones</th>
                     </tr>
                 </thead>
