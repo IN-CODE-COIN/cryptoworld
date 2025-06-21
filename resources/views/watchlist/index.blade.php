@@ -1,6 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold">🕵️‍♂️ Mi Watchlist</h2>
+        <div class="flex items-center justify-between gap-4">
+            <h2 class="font-semibold text-3xl text-gray-800 leading-tight flex items-center gap-4">
+                Mi Watchlist
+            </h2>
+            <a href="{{ route('home') }}"
+            class="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md text-xs font-medium transition">
+                ← Volver
+            </a>
+        </div>
     </x-slot>
 
     <div class="max-w-7xl mx-auto py-6">
