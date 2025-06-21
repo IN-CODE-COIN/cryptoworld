@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 
 class CryptoController extends Controller
 {
@@ -31,8 +32,11 @@ class CryptoController extends Controller
 
         $coin = $response->json()['data']['coin'];
 
+        $watchlistUuids = Auth::user()?->watchlist()->pluck('coin_uuid')->toArray();
+
         return view('layouts.show', [
             'coin' => $coin,
+            'watchlistUuids' => $watchlistUuids
         ]);
     }
 

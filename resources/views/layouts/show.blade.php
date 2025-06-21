@@ -5,14 +5,47 @@
                 <img src="{{ $coin['iconUrl'] }}" alt="{{ $coin['name'] }}" class="w-10 h-10 md:w-14 md:h-14 object-contain" />
                 {{ $coin['name'] }} ({{ $coin['symbol'] }})
             </h2>
-            <a href="{{ route('home') }}" 
-            class="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md text-xs font-medium transition">
-                ← Volver
-            </a>
+            <div>
+                <!-- Botón para agregar a la watchlist -->
+                @php
+                    $isInWatchlist = in_array($coin['uuid'], $watchlistUuids);
+                @endphp
+
+                @if ($isInWatchlist)
+                    <button disabled class="inline-flex items-center px-4 py-2 text-xs font-medium text-white bg-gray-400 rounded-lg cursor-not-allowed">
+                        Ya en lista
+                    </button>
+                @else
+                    <form action="{{ route('watchlist.store') }}" method="POST" class="inline-block">
+                        @csrf
+                        <input type="hidden" name="uuid" value="{{ $coin['uuid'] }}">
+                        <input type="hidden" name="name" value="{{ $coin['name'] }}">
+                        <input type="hidden" name="symbol" value="{{ $coin['symbol'] }}">
+                        <input type="hidden" name="iconUrl" value="{{ $coin['iconUrl'] }}">
+                        <input type="hidden" name="price" value="{{ $coin['price'] }}">
+                        <input type="hidden" name="change" value="{{ $coin['change'] }}">
+                        <input type="hidden" name="marketCap" value="{{ $coin['marketCap'] }}">
+                        <button type="submit" class="inline-flex items-center px-4 py-2 text-xs font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800">
+                            Añadir a lista
+                        </button>
+                    </form>
+                @endif
+                <!-- Botón para volver a Home -->
+                <a href="{{ route('home') }}"
+                    class="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md text-xs font-medium transition">
+                    ← Volver
+                </a>
+            </div>
         </div>
     </x-slot>
 
     <div class="max-w-5xl mx-auto p-6 bg-white shadow rounded-xl mt-8">
+        <!--Mensaje de exito al añadir a la watchlist -->
+        @if(session('success'))
+            <div class="mb-4 text-sm text-green-600 bg-green-100 px-4 py-2 rounded">
+                {{ session('success') }}
+            </div>
+        @endif
         {{-- Sección destacada: Precio y cambio --}}
         <div class="text-center mb-8">
             <p class="text-4xl font-bold text-gray-900">

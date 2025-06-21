@@ -49,6 +49,7 @@
                         </p>
                     </div>
                     <div class="flex mt-4 md:mt-6 justify-center">
+                        <!-- Botón para agregar a la watchlist -->
                         @php
                             $isInWatchlist = in_array($coin['uuid'], $watchlistUuids);
                         @endphp

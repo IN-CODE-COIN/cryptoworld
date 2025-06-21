@@ -13,7 +13,7 @@
 
     <div class="max-w-7xl mx-auto py-6">
         @if(session('success'))
-            <div class="mb-4 text-green-600">{{ session('success') }}</div>
+            <div class="mb-4 text-sm text-green-600 bg-green-100 px-4 py-2 rounded">{{ session('success') }}</div>
         @endif
 
         @if($watchlist->count())
