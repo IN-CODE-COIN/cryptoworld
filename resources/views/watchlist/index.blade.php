@@ -42,7 +42,7 @@
                             <td class="px-4 py-2 {{ $coin->change >= 0 ? 'text-green-600' : 'text-red-600' }}">{{ $coin->change }}%</td>
                             <td class="px-4 py-2">${{ number_format($coin->market_cap) }}</td>
                             <td class="px-4 py-2">
-                                <form action="{{ route('watchlist.destroy', $coin) }}" method="POST" onsubmit="return confirm('¿Eliminar esta cripto de tu lista?')">
+                                <form action="{{ route('watchlist.destroy', $coin) }}" method="POST" onsubmit="return confirm('¿Eliminar esta criptomoneda de tu lista?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="text-red-600 hover:underline">Eliminar</button>
@@ -54,7 +54,7 @@
             </table>
         </div>
         @else
-            <p>No tienes criptomonedas en tu watchlist todavía.</p>
+            <p>No tienes criptomonedas en tu lista de seguimiento todavía.</p>
         @endif
     </div>
 </x-app-layout>

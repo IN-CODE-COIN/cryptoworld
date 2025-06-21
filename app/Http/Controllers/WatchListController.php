@@ -27,7 +27,7 @@ class WatchlistController extends Controller
 
         //* Si el usuario no es pro y ha alcanzado el límite de 5 criptomonedas en su watchlist *//
         if ($count >= 5 && !$user->isPro() && !$user->onTrial()) {
-            return redirect()->back()->with('warning', 'Has alcanzado el límite de criptomonedas en tu watchlist. Actualiza tu cuenta a premium para aumentar tu límite.');
+            return redirect()->back()->with('warning', 'Has alcanzado el límite de criptomonedas en tu lista de seguimiento. Actualiza tu cuenta a premium para aumentar tu límite.');
         }
 
         //* Limpiar la lista de watchlist y dejar solo 5 *//
@@ -46,7 +46,7 @@ class WatchlistController extends Controller
             ->exists();
 
         if ($exists) {
-            return redirect()->back()->with('warning', 'Esta criptomoneda ya está en tu watchlist.');
+            return redirect()->back()->with('warning', 'Esta criptomoneda ya está en tu lista de seguimiento.');
         }
 
         $watchlist = new Watchlist([
@@ -61,7 +61,7 @@ class WatchlistController extends Controller
 
         Auth::user()->watchlist()->save($watchlist);
 
-        return redirect()->back()->with('success', 'Cripto añadida a tu watchlist.');
+        return redirect()->back()->with('success', 'Cripto añadida a tu lista de seguimiento.');
     }
 
     public function destroy(Watchlist $watchlist)
@@ -70,7 +70,7 @@ class WatchlistController extends Controller
 
         $watchlist->delete();
 
-        return redirect()->back()->with('success', 'Cripto eliminada.');
+        return redirect()->back()->with('success', 'Cripto eliminada de la lista de seguimiento.');
     }
 }
 
