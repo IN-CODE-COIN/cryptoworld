@@ -25,6 +25,10 @@
                             {{ __('Cartera') }}
                         </x-nav-link>
                     @endif
+
+                    <x-nav-link :href="route('pricing.index')" :active="request()->routeIs('pricing.*')">
+                        {{ __('Pricing') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -90,6 +94,10 @@
                     {{ __('Cartera') }}
                 </x-responsive-nav-link>
             @endif
+
+            <x-responsive-nav-link :href="route('pricing.index')" :active="request()->routeIs('pricing.*')">
+                {{ __('Pricing') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

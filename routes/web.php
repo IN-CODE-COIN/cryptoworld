@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CryptoController;
 use App\Http\Controllers\WatchlistController;
+use App\Http\Controllers\PricingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -40,12 +41,16 @@ Route::get('/crypto/autocomplete', [CryptoController::class, 'autocomplete'])
     ->middleware('auth')
     ->name('crypto.autocomplete');
 
-
+//* Rutas de watchlist *//
 Route::middleware(['auth'])->group(function () {
     Route::get('/watchlist', [WatchlistController::class, 'index'])->name('watchlist.index');
     Route::post('/watchlist', [WatchlistController::class, 'store'])->name('watchlist.store');
     Route::delete('/watchlist/{watchlist}', [WatchlistController::class, 'destroy'])->name('watchlist.destroy');
 });
+
+//* Rutas del Pricing *//
+Route::get('/pricing', [PricingController::class, 'show'])->name('pricing.index');
+Route::post('/start-trial', [PricingController::class, 'startTrial'])->middleware('auth')->name('start.trial');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
