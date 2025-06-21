@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -17,8 +18,12 @@ class HomeController extends Controller
 
         $coins = $response->json()['data']['coins'] ?? [];
 
+        $watchlistUuids = Auth::user()?->watchlist()->pluck('coin_uuid')->toArray();
+
         return view('layouts.home', [
             'topCryptos' => $coins,
+            'watchlistUuids' => $watchlistUuids,
         ]);
     }
+
 }

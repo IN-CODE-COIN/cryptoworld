@@ -50,4 +50,10 @@ class User extends Authenticatable
     {
         return $this->rol === 'pro';
     }
+
+    public function watchlist()
+    {
+        return $this->hasMany(Watchlist::class);
+    }
+
 }

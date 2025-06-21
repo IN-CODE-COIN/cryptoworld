@@ -6,6 +6,12 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto py-4">
+        <!--Mensaje de exito al añadir a la watchlist -->
+        @if(session('success'))
+            <div class="mb-4 text-sm text-green-600 bg-green-100 px-4 py-2 rounded">
+                {{ session('success') }}
+            </div>
+        @endif
         <h3 class="text-2xl font-bold my-4 text-center">Buscar Criptomoneda</h3>
 
         <form action="{{ route('crypto.search') }}" method="GET" class="relative flex items-center space-x-4 mb-8">
@@ -43,7 +49,29 @@
                         </p>
                     </div>
                     <div class="flex mt-4 md:mt-6 justify-center">
-                        <a href="#" class="inline-flex items-center px-4 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Añadir a lista</a>
+                        @php
+                            $isInWatchlist = in_array($coin['uuid'], $watchlistUuids);
+                        @endphp
+
+                        @if ($isInWatchlist)
+                            <button disabled class="inline-flex items-center px-4 py-2 text-xs font-medium text-white bg-gray-400 rounded-lg cursor-not-allowed">
+                                Ya en lista
+                            </button>
+                        @else
+                            <form action="{{ route('watchlist.store') }}" method="POST" class="inline-block">
+                                @csrf
+                                <input type="hidden" name="uuid" value="{{ $coin['uuid'] }}">
+                                <input type="hidden" name="name" value="{{ $coin['name'] }}">
+                                <input type="hidden" name="symbol" value="{{ $coin['symbol'] }}">
+                                <input type="hidden" name="iconUrl" value="{{ $coin['iconUrl'] }}">
+                                <input type="hidden" name="price" value="{{ $coin['price'] }}">
+                                <input type="hidden" name="change" value="{{ $coin['change'] }}">
+                                <input type="hidden" name="marketCap" value="{{ $coin['marketCap'] }}">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 text-xs font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800">
+                                    Añadir a lista
+                                </button>
+                            </form>
+                        @endif
                         <a href="{{ route('crypto.show', $coin['uuid']) }}" class="py-2 px-4 ms-2 text-xs font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Detalles</a>
                     </div>
                 </div>
