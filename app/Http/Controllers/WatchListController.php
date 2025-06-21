@@ -26,12 +26,12 @@ class WatchlistController extends Controller
         $count = $user->watchlist()->count();
 
         //* Si el usuario no es pro y ha alcanzado el límite de 5 criptomonedas en su watchlist *//
-        if ($count >= 5 && !$user->isPro()) {
+        if ($count >= 5 && !$user->isPro() && !$user->onTrial()) {
             return redirect()->back()->with('warning', 'Has alcanzado el límite de criptomonedas en tu watchlist. Actualiza tu cuenta a premium para aumentar tu límite.');
         }
 
         //* Limpiar la lista de watchlist y dejar solo 5 *//
-        if (!$user->isPro() && $user->watchlist()->count() > 5) {
+        if (!$user->isPro() && !$user->onTrial() && $user->watchlist()->count() > 5) {
             $user->watchlist()
                 ->orderBy('created_at', 'desc')
                 ->skip(5)

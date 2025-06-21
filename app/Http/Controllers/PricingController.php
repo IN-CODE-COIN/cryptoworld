@@ -14,8 +14,8 @@ class PricingController extends Controller
 
         return view('pricing.index', [
             'user' => $user,
-            'onTrial' => $user?->trial_ends_at && now()->lt($user->trial_ends_at),
-            'isPro' => $user?->is_pro,
+            'onTrial' => $user?->onTrial(),
+            'isPro' => $user?->isPro(),
         ]);
     }
 

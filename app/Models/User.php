@@ -49,7 +49,11 @@ class User extends Authenticatable
 
     public function isPro()
     {
-        return $this->rol === 'pro' || ($this->trial_ends_at && $this->trial_ends_at->isFuture());
+        return $this->rol === 'pro';
+    }
+
+    public function onTrial() {
+        return $this->trial_ends_at && now()->lt($this->trial_ends_at);
     }
 
     public function watchlist()

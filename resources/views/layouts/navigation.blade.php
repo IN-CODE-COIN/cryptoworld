@@ -13,27 +13,45 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('Dashboard') }}
+                        {{ __('Inicio') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('watchlist.index')" :active="request()->routeIs('watchlist.*')">
-                        {{ __('Watchlist') }}
+                        {{ __('Lista') }}
                     </x-nav-link>
 
-                    @if(auth()->user()->isPro())
+                    @if(auth()->user()->isPro() || auth()->user()->onTrial())
                         <x-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
                             {{ __('Cartera') }}
                         </x-nav-link>
                     @endif
 
                     <x-nav-link :href="route('pricing.index')" :active="request()->routeIs('pricing.*')">
-                        {{ __('Pricing') }}
+                        {{ __('Planes') }}
                     </x-nav-link>
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
+            @php
+                $user = auth()->user();
+                $plan = 'Hazte Pro';
+                $color = 'bg-gray-200 hover:bg-gray-300 text-gray-800';
+
+                if ($user->isPro()) {
+                    $plan = 'Plan Pro';
+                    $color = 'bg-amber-400 hover:bg-amber-500 text-white';
+                } elseif ($user->onTrial()) {
+                    $plan = 'Plan de Prueba';
+                    $color = 'bg-green-500 hover:bg-green-600 text-white';
+                }
+            @endphp
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <a href="{{ route('pricing.index') }}"
+                class="inline-flex items-center px-4 py-2 {{ $color }} rounded-md text-xs font-medium transition">
+                    {{ $plan }}
+                </a>
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -82,21 +100,21 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                {{ __('Dashboard') }}
+                {{ __('Inicio') }}
             </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('watchlist.index')" :active="request()->routeIs('watchlist.*')">
-                {{ __('Watchlist') }}
+                {{ __('Lista') }}
             </x-responsive-nav-link>
 
-            @if(auth()->user()->isPro())
+            @if(auth()->user()->isPro() || auth()->user()->onTrial())
                 <x-responsive-nav-link :href="route('wallet.index')" :active="request()->routeIs('wallet.*')">
                     {{ __('Cartera') }}
                 </x-responsive-nav-link>
             @endif
 
             <x-responsive-nav-link :href="route('pricing.index')" :active="request()->routeIs('pricing.*')">
-                {{ __('Pricing') }}
+                {{ __('Planes') }}
             </x-responsive-nav-link>
         </div>
 
