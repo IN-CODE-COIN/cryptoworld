@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('crypto_transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('crypto_position_id')->constrained('crypto_positions')->onDelete('cascade');
             $table->enum('type', ['buy', 'sell']);
-            $table->string('coin_uuid');
-            $table->string('symbol');
-            $table->decimal('price_usd', 18, 8);
-            $table->decimal('amount_coin', 18, 8);
-            $table->decimal('total_usd', 18, 2);
-            $table->decimal('fees', 18, 2)->nullable();
-            $table->timestamp('date');
+            $table->decimal('quantity', 18, 8);
+            $table->decimal('price_usd', 18, 2);
+            $table->decimal('fees', 18, 2)->default(0);
+            $table->decimal('total_cost', 18, 2);
+            $table->date('date');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('crypto_transactions');
     }
 };

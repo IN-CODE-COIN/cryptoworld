@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class CryptoTransaction extends Model
 {
     protected $fillable = [
-        'user_id', 'coin_uuid', 'symbol', 'price_usd',
-        'amount_coin', 'total_usd', 'fees', 'type', 'date'
+        'user_id', 'crypto_position_id', 'type', 'quantity', 'price_usd', 'fees', 'total_cost', 'date'
     ];
+
+    public function position()
+    {
+        return $this->belongsTo(CryptoPosition::class, 'crypto_position_id');
+    }
 
     public function user()
     {

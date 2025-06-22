@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('crypto_wallets', function (Blueprint $table) {
+        Schema::create('crypto_positions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('symbol', 10);
-            $table->decimal('total_quantity', 18, 8);
-            $table->decimal('average_price_usd', 18, 8);
+            $table->string('crypto_id');
+            $table->string('crypto_name');
+            $table->decimal('amount', 18, 8)->default(0);
+            $table->decimal('average_price', 18, 2)->default(0);
             $table->timestamps();
+
+            $table->unique(['user_id', 'crypto_id']);
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('crypto_wallets');
+        Schema::dropIfExists('crypto_positions');
     }
 };

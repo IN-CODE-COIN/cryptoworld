@@ -23,7 +23,7 @@
         <!-- Añadir transacción -->
         <div class="bg-white dark:bg-gray-800 shadow rounded p-6 text-center">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Nueva transacción</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Registra una compra o venta de criptomonedas.</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 p-2">Registra una compra o venta de criptomonedas.</p>
             <a href="{{ route('wallet.transaction.create') }}" class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-xs font-medium">
                 Añadir Transacción
             </a>

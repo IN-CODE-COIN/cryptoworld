@@ -8,41 +8,72 @@ class CryptoTransactionController extends Controller
 {
     public function create()
     {
-        $balance = auth()->user()->balance;
-        return view('wallet.transaction.create', compact('balance'));
+        return view('wallet.transaction.create');
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
-            'coin_uuid'    => 'required|string',
-            'symbol'       => 'required|string',
-            'price_usd'    => 'required|numeric',
-            'amount_coin'  => 'required|numeric',
-            'total_usd'    => 'required|numeric',
-            'fees'         => 'nullable|numeric',
-            'type'         => 'required|in:buy,sell',
-            'date'         => 'required|date',
+            'crypto_id' => 'required|string',
+            'crypto_name' => 'required|string',
+            'type' => 'required|in:buy,sell',
+            'quantity' => 'required|numeric|min:0.00000001',
+            'price_usd' => 'required|numeric|min:0.01',
+            'fees' => 'nullable|numeric|min:0',
+            'date' => 'required|date',
         ]);
 
-        $user = auth()->user();
+        $user = Auth::user();
 
-        $totalWithFees = $data['total_usd'] + ($data['fees'] ?? 0);
+        $totalCost = ($data['quantity'] * $data['price_usd']) + ($data['fees'] ?? 0);
 
-        if ($data['type'] === 'buy' && $user->balance < $totalWithFees) {
-            return back()->withInput()->with('error', 'Saldo insuficiente. Máximo disponible: $' . number_format($user->balance, 2));
+        if ($data['type'] === 'buy' && $user->balance < $totalCost) {
+            return back()->withErrors(['quantity' => 'No tienes saldo suficiente para esta compra.'])
+                         ->withInput();
         }
 
-        $tx = $user->cryptoTransactions()->create($data);
+        $position = CryptoPosition::firstOrNew([
+            'user_id' => $user->id,
+            'crypto_id' => $data['crypto_id'],
+        ]);
+        $position->crypto_name = $data['crypto_name'];
 
         if ($data['type'] === 'buy') {
-            $user->balance -= $totalWithFees;
+
+            $newAmount = $position->amount + $data['quantity'];
+            $newAveragePrice = $position->amount == 0
+                ? $data['price_usd']
+                : (($position->average_price * $position->amount) + ($data['price_usd'] * $data['quantity'])) / $newAmount;
+            $position->amount = $newAmount;
+            $position->average_price = $newAveragePrice;
+
+            $user->balance -= $totalCost;
             $user->save();
-        } elseif ($data['type'] === 'sell') {
-            $user->balance += ($data['total_usd'] - ($data['fees'] ?? 0));
+
+        } else {
+            if ($position->amount < $data['quantity']) {
+                return back()->withErrors(['quantity' => 'No tienes suficientes criptomonedas para esta venta.'])
+                             ->withInput();
+            }
+            $position->amount -= $data['quantity'];
+
+            $user->balance += ($data['quantity'] * $data['price_usd']) - ($data['fees'] ?? 0);
             $user->save();
         }
 
-        return redirect()->route('wallet.index')->with('success', 'Transacción registrada con éxito.');
+        $position->save();
+
+        CryptoTransaction::create([
+            'user_id' => $user->id,
+            'crypto_position_id' => $position->id,
+            'type' => $data['type'],
+            'quantity' => $data['quantity'],
+            'price_usd' => $data['price_usd'],
+            'fees' => $data['fees'] ?? 0,
+            'total_cost' => $totalCost,
+            'date' => $data['date'],
+        ]);
+
+        return redirect()->route('wallet.index')->with('success', 'Transacción registrada correctamente.');
     }
 }

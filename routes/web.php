@@ -6,6 +6,7 @@ use App\Http\Controllers\CryptoController;
 use App\Http\Controllers\WatchlistController;
 use App\Http\Controllers\PricingController;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\CryptoTransactionController;
 
 use Illuminate\Support\Facades\Route;
 
