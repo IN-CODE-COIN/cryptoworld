@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CryptoPosition;
 use App\Models\CryptoTransaction;
+use App\Models\FundMovement;
 
 class CryptoTransactionController extends Controller
 {
@@ -34,6 +35,9 @@ class CryptoTransactionController extends Controller
         if ($data['type'] === 'buy' && $user->balance < $totalCost) {
             return back()->withErrors(['quantity' => 'No tienes saldo suficiente para esta compra.'])
                          ->withInput();
+        } else {
+            $user->balance -= $totalCost;
+            $user->save();
         }
 
         $position = CryptoPosition::firstOrNew([
@@ -78,6 +82,25 @@ class CryptoTransactionController extends Controller
             'total_cost' => $totalCost,
             'date' => $data['date'],
         ]);
+
+        FundMovement::create([
+            'user_id' => $user->id,
+            'type' => $data['type'] === 'buy' ? 'compra' : 'venta',
+            'amount' => $data['type'] === 'buy' ? -($data['quantity'] * $data['price_usd']) : ($data['quantity'] * $data['price_usd']),
+            'description' => ucfirst($data['type']) . " de {$data['quantity']} {$data['crypto_name']} a \${$data['price_usd']} USD",
+            'date' => $data['date'],
+        ]);
+
+        // Si hay fees
+        if (!empty($data['fees']) && $data['fees'] > 0) {
+            FundMovement::create([
+                'user_id' => $user->id,
+                'type' => 'fee',
+                'amount' => -$data['fees'],
+                'description' => "Fee por {$data['type']} de {$data['crypto_name']}",
+                'date' => $data['date'],
+            ]);
+        }
 
         return redirect()->route('wallet.index')->with('success', 'Transacción registrada correctamente.');
     }

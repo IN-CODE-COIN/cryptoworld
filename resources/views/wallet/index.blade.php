@@ -14,7 +14,7 @@
         <!-- Saldo -->
         <div class="bg-white dark:bg-gray-800 shadow rounded p-6 text-center">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Efectivo</h3>
-            <p class="text-3xl text-green-500 font-bold mt-2">${{ number_format($balance, 2) }}</p>
+            <p class="text-3xl text-green-500 font-bold mt-2">${{ number_format(Auth::user()->balance, 2) }}</p>
             <a href="{{ route('wallet.create') }}" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-xs font-medium">
                 Ingresar / Retirar
             </a>
@@ -48,7 +48,7 @@
                     @forelse($movements->take(5) as $movement)
                         <tr class="border-b border-gray-200 dark:border-gray-700">
                             <td class="px-4 py-2">{{ \Carbon\Carbon::parse($movement->date)->format('d/m/Y') }}</td>
-                            <td class="px-4 py-2">{{ $movement->type === 'deposit' ? 'Depósito' : 'Retirada' }}</td>
+                            <td class="px-4 py-2">{{ $movement->type === 'deposito' ? 'Depósito' : 'Retirada' }}</td>
                             <td class="px-4 py-2">
                                 <span class="{{ $movement->type === 'deposit' ? 'text-green-500' : 'text-red-500' }}">
                                     ${{ number_format($movement->amount, 2) }}

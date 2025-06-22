@@ -19,22 +19,7 @@ class WalletController extends Controller
 
         $movements = $user->fundMovements()->orderBy('date', 'desc')->take(10)->get();
 
-        $positions = [
-            (object)[
-                'symbol' => 'BTC',
-                'quantity' => 0.5,
-                'profit' => 320.45,
-                'daily_change' => 1.82,
-                'total_change' => 12.45
-            ],
-            (object)[
-                'symbol' => 'ETH',
-                'quantity' => 1.8,
-                'profit' => -75.20,
-                'daily_change' => -0.9,
-                'total_change' => -3.45
-            ],
-        ];
+        $positions = [];
 
         return view('wallet.index', compact('balance', 'user', 'movements', 'positions'));
     }
