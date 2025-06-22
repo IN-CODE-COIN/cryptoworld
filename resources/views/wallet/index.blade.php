@@ -70,7 +70,8 @@
                 <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
                     <tr>
                         <th class="px-4 py-2">Cripto</th>
-                        <th class="px-4 py-2">Cantidad</th>
+                        <th class="px-4 py-2">Cantidad (USD)</th>
+                        <th class="px-4 py-2">Unidades Crypto</th>
                         <th class="px-4 py-2">P/G</th>
                         <th class="px-4 py-2">% Día</th>
                         <th class="px-4 py-2">% Total</th>
@@ -81,6 +82,7 @@
                         <tr class="border-b border-gray-200 dark:border-gray-700">
                             <td class="px-4 py-2">{{ $position->symbol }}</td>
                             <td class="px-4 py-2">{{ $position->quantity }}</td>
+                            <td class="px-4 py-2">{{ $position->amount }}</td>
                             <td class="px-4 py-2 ${ $position->profit >= 0 ? 'text-green-500' : 'text-red-500' }">
                                 ${{ number_format($position->profit, 2) }}
                             </td>

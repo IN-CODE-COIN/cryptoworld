@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(CryptoTransaction::class);
     }
+
+    public function cryptoPositions()
+    {
+        return $this->hasMany(CryptoPosition::class);
+    }
 }

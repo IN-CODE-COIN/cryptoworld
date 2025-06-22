@@ -19,7 +19,20 @@ class WalletController extends Controller
 
         $movements = $user->fundMovements()->orderBy('date', 'desc')->take(10)->get();
 
-        $positions = [];
+        $positions = $user->cryptoPositions()
+            ->where('amount', '>', 0)
+            ->get()
+            ->map(function ($pos) {
+                return (object) [
+                    'symbol' => strtoupper($pos->crypto_name),
+                    'amount' => $pos->amount,
+                    'quantity' => $pos->amount,
+                    'average_price' => $pos->average_price,
+                    'profit' => 0,
+                    'daily_change' => 0,
+                    'total_change' => 0,
+                ];
+            });
 
         return view('wallet.index', compact('balance', 'user', 'movements', 'positions'));
     }
