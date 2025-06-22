@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\CryptoPosition;
+use App\Models\CryptoTransaction;
 
 class CryptoTransactionController extends Controller
 {
@@ -18,10 +20,11 @@ class CryptoTransactionController extends Controller
             'crypto_id' => 'required|string',
             'crypto_name' => 'required|string',
             'type' => 'required|in:buy,sell',
-            'quantity' => 'required|numeric|min:0.00000001',
-            'price_usd' => 'required|numeric|min:0.01',
-            'fees' => 'nullable|numeric|min:0',
             'date' => 'required|date',
+            'amount_usd' => 'required|numeric|min:0.01',
+            'price_usd' => 'required|numeric|min:0.01',
+            'quantity' => 'required|numeric|min:0.00000001',
+            'fees' => 'nullable|numeric|min:0',
         ]);
 
         $user = Auth::user();
@@ -69,6 +72,7 @@ class CryptoTransactionController extends Controller
             'crypto_position_id' => $position->id,
             'type' => $data['type'],
             'quantity' => $data['quantity'],
+            'amount_usd' => $data['amount_usd'],
             'price_usd' => $data['price_usd'],
             'fees' => $data['fees'] ?? 0,
             'total_cost' => $totalCost,
