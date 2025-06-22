@@ -61,4 +61,9 @@ class User extends Authenticatable
         return $this->hasMany(Watchlist::class);
     }
 
+    public function fundMovements()
+    {
+        return $this->hasMany(FundMovement::class);
+    }
+
 }

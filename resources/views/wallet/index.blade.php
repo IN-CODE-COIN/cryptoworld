@@ -11,13 +11,46 @@
         </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    Tu cartera aparecerá aquí.
-                </div>
-            </div>
+    <div class="py-10 max-w-4xl mx-auto space-y-8">
+        <!-- Saldo -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded p-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Saldo actual</h3>
+            <p class="text-3xl text-green-500 font-bold mt-2">€{{ number_format($balance, 2) }}</p>
+            <a href="{{ route('wallet.create') }}" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Ingresar / Retirar
+            </a>
+        </div>
+
+        <!-- Lista de movimientos -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded p-6">
+            <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">Movimientos recientes</h3>
+
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
+                    <tr>
+                        <th class="px-4 py-2">Fecha</th>
+                        <th class="px-4 py-2">Tipo</th>
+                        <th class="px-4 py-2">Cantidad</th>
+                        <th class="px-4 py-2">Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($movements as $movement)
+                        <tr class="border-b border-gray-200 dark:border-gray-700">
+                            <td class="px-4 py-2">{{ $movement->date->format('d/m/Y') }}</td>
+                            <td class="px-4 py-2">{{ ucfirst($movement->type) }}</td>
+                            <td class="px-4 py-2">
+                                <span class="{{ $movement->type === 'deposit' ? 'text-green-500' : 'text-red-500' }}">
+                                    €{{ number_format($movement->amount, 2) }}
+                                </span>
+                            </td>
+                            <td class="px-4 py-2">{{ $movement->description ?? '-' }}</td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="4" class="text-center py-4 text-gray-500">No hay movimientos aún.</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
 </x-app-layout>

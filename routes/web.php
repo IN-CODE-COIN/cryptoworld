@@ -13,27 +13,35 @@ Route::get('/', [HomeController::class, 'index'])
     ->middleware(['auth'])
     ->name('home');
 
-//* Página de inicio *//
+//* Ruta de inicio *//
 Route::get('/home', [HomeController::class, 'index'])
     ->middleware(['auth'])
     ->name('home');
 
-//* Página de lista de seguimiento *//
+//* Ruta de lista de seguimiento *//
 Route::get('/watchlist', function () {
     return 'Página de watchlist';
 })->middleware(['auth'])->name('watchlist.index');
 
-//* Página de cartera -> solo usuarios pro *//
-Route::get('/wallet', [WalletController::class, 'index'])
-    ->middleware(['auth'])
-    ->name('wallet.index');
+//* Rutas de cartera -> solo usuarios pro *//
+Route::middleware(['auth'])->group(function () {
+    Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
+    Route::get('/wallet/create', [WalletController::class, 'create'])->name('wallet.create');
+    Route::post('/wallet', [WalletController::class, 'store'])->name('wallet.store');
+});
 
-//* Página de busqueda de criptomonedas *//
+/*Route::middleware(['auth'])->prefix('wallet')->name('wallet.')->group(function () {
+    Route::get('/', [WalletController::class, 'index'])->name('index');
+    Route::get('/create', [WalletController::class, 'create'])->name('create');
+    Route::post('/', [WalletController::class, 'store'])->name('store');
+});*/
+
+//* Ruta de busqueda de criptomonedas *//
 Route::get('/buscar-crypto', [CryptoController::class, 'search'])
     ->name('crypto.search')
     ->middleware('auth');
 
-//* Página de detalles cryptomonedas *//
+//* Ruta de detalles cryptomonedas *//
 Route::get('/home/{uuid}', [CryptoController::class, 'show'])
     ->middleware('auth')
     ->name('crypto.show');
