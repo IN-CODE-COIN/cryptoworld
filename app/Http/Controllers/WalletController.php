@@ -55,6 +55,7 @@ class WalletController extends Controller
 
         //Registro movimiento
         $user->fundMovements()->create([
+            'user_id' => $user->id,
             'type' => $data['type'],
             'amount' => $data['amount'],
             'description' => $data['description'],
