@@ -23,14 +23,14 @@
         <form action="{{ route('crypto.search') }}" method="GET" class="relative flex items-center space-x-4 mb-8">
             <input
                 type="text"
-                id="search-input"
+                id="search-input-home"
                 name="query"
                 placeholder="Nombre o símbolo (Ej: bitcoin, btc)"
                 autocomplete="off"
                 class="w-full px-4 py-2 border rounded"
             >
 
-            <ul id="suggestions" class="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded mt-1 max-h-60 overflow-auto z-50 hidden">
+            <ul id="suggestions-home" class="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded mt-1 max-h-60 overflow-auto z-50 hidden">
                 <!-- aquí van las sugerencias -->
             </ul>
         </form>
