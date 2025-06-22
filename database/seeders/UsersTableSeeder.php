@@ -28,5 +28,12 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('1245'),
             'rol' => 'pro',
         ]);
+
+        User::create([
+            'name' => 'Alicia',
+            'email' => 'alicia@crypto.com',
+            'password' => Hash::make('1245'),
+            'rol' => 'normal',
+        ]);
     }
 }

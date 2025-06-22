@@ -40,7 +40,7 @@
                             <td class="px-4 py-2">{{ $movement->date->format('d/m/Y') }}</td>
                             <td class="px-4 py-2">{{ ucfirst($movement->type) }}</td>
                             <td class="px-4 py-2">
-                                <span class="{{ $movement->type === 'deposit' ? 'text-green-500' : 'text-red-500' }}">
+                                <span class="{{ $movement->type === 'deposito' ? 'text-green-500' : 'text-red-500' }}">
                                     ${{ number_format($movement->amount, 2) }}
                                 </span>
                             </td>

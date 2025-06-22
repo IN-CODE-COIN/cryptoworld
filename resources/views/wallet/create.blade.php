@@ -32,8 +32,8 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tipo</label>
                         <select name="type" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                            <option value="deposit">Ingreso</option>
-                            <option value="withdraw">Retirada</option>
+                            <option value="deposito">Ingreso</option>
+                            <option value="retirada">Retirada</option>
                         </select>
                     </div>
 

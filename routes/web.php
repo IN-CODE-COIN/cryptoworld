@@ -30,12 +30,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/wallet', [WalletController::class, 'store'])->name('wallet.store');
 });
 
-/*Route::middleware(['auth'])->prefix('wallet')->name('wallet.')->group(function () {
-    Route::get('/', [WalletController::class, 'index'])->name('index');
-    Route::get('/create', [WalletController::class, 'create'])->name('create');
-    Route::post('/', [WalletController::class, 'store'])->name('store');
-});*/
-
 //* Ruta de busqueda de criptomonedas *//
 Route::get('/buscar-crypto', [CryptoController::class, 'search'])
     ->name('crypto.search')

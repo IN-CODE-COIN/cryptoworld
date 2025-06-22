@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('fund_movements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->enum('type', ['deposit', 'withdraw']);
+            $table->enum('type', ['deposito', 'retirada']);
             $table->decimal('amount', 18, 2);
             $table->text('description')->nullable();
             $table->timestamp('date')->useCurrent();

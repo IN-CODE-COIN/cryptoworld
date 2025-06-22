@@ -12,8 +12,8 @@ class WalletController extends Controller
     {
         $user = Auth::user();
 
-        $deposits = $user->fundMovements()->where('type', 'deposit')->sum('amount');
-        $withdraws = $user->fundMovements()->where('type', 'withdraw')->sum('amount');
+        $deposits = $user->fundMovements()->where('type', 'deposito')->sum('amount');
+        $withdraws = $user->fundMovements()->where('type', 'retirada')->sum('amount');
 
         $balance = $deposits - $withdraws;
 
@@ -31,7 +31,7 @@ class WalletController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'type' => 'required|in:deposit,withdraw',
+            'type' => 'required|in:deposito,retirada',
             'amount' => 'required|numeric|min:0.01',
             'description' => 'nullable|string|max:255',
             'method' => 'required|in:transfer,card,paypal',
@@ -41,14 +41,14 @@ class WalletController extends Controller
         $currentBalance = $user->balance;
 
         //Se hace retirada pero no hay saldo
-        if ($data['type'] === 'withdraw') {
+        if ($data['type'] === 'retirada') {
             if ($data['amount'] > $currentBalance) {
                 return back()->withInput()->with('error', "Saldo insuficiente. Tu saldo disponible es de $" . number_format($currentBalance, 2));
             }
         }
 
         //Actualiza saldo usuario
-        $user->balance += $data['type'] === 'deposit' ? $data['amount'] : -$data['amount'];
+        $user->balance += $data['type'] === 'deposito' ? $data['amount'] : -$data['amount'];
         $user->save();
 
         //Registro movimiento
