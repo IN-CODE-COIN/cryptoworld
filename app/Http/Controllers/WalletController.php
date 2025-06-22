@@ -37,16 +37,20 @@ class WalletController extends Controller
         ]);
 
         $user = Auth::user();
+        $currentBalance = $user->balance;
 
-        // Actualizamos saldo
-        if ($data['type'] === 'withdraw' && $user->balance < $data['amount']) {
-            return back()->with('error', 'No tienes saldo suficiente.');
+        //Se hace retirada pero no hay saldo
+        if ($data['type'] === 'withdraw') {
+            if ($data['amount'] > $currentBalance) {
+                return back()->withInput()->with('error', "Saldo insuficiente. Tu saldo disponible es de €" . number_format($currentBalance, 2));
+            }
         }
 
+        //Actualiza saldo usuario
         $user->balance += $data['type'] === 'deposit' ? $data['amount'] : -$data['amount'];
         $user->save();
 
-        // Guardamos movimiento
+        //Registro movimiento
         $user->fundMovements()->create([
             'type' => $data['type'],
             'amount' => $data['amount'],

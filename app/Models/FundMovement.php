@@ -10,4 +10,11 @@ class FundMovement extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $fillable = ['type', 'amount', 'description', 'method', 'date'];
+
+    protected $casts = [
+        'date' => 'datetime',
+    ];
+
 }

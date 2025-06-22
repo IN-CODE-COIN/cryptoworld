@@ -13,6 +13,11 @@
 
     <div class="py-10 max-w-4xl mx-auto space-y-8">
 
+        @if(session('error'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                {{ session('error') }}
+            </div>
+        @endif
         <!-- Formulario de movimiento -->
         <div class="bg-white dark:bg-gray-800 shadow rounded p-6">
             <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">Nuevo movimiento</h3>
@@ -50,7 +55,7 @@
                 </div>
 
                 <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                    Guardar movimiento
+                    Guardar
                 </button>
             </form>
         </div>
