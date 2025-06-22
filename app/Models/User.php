@@ -66,4 +66,8 @@ class User extends Authenticatable
         return $this->hasMany(FundMovement::class);
     }
 
+    public function cryptoTransactions()
+    {
+        return $this->hasMany(CryptoTransaction::class);
+    }
 }
