@@ -24,7 +24,8 @@ class WalletController extends Controller
 
     public function create()
     {
-        return view('wallet.create');
+        $user = Auth::user();
+        return view('wallet.create', ['balance' => $user->balance]);
     }
 
     public function store(Request $request)

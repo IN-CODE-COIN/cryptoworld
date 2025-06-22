@@ -21,6 +21,9 @@
         <!-- Formulario de movimiento -->
         <div class="bg-white dark:bg-gray-800 shadow rounded p-6">
             <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">Nuevo movimiento</h3>
+            <p class="text-sm text-gray-500 mb-2">
+                Saldo disponible: <strong>€{{ number_format($balance, 2) }}</strong>
+            </p>
 
             <form method="POST" action="{{ route('wallet.store') }}" class="space-y-4">
                 @csrf
