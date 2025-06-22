@@ -65,7 +65,7 @@
 
             <div>
                 <label for="quantity" class="block font-medium text-gray-700">Unidades cryptomoneda</label>
-                <input type="number" step="0.00000001" name="quantity" id="quantity" value="{{ old('quantity') }}" required class="mt-1 block w-full rounded border-gray-300">
+                <input type="number" step="0.00000001" name="quantity" id="quantity" value="{{ old('quantity') }}" required class="mt-1 block w-full rounded border-gray-300 bg-gray-100 text-gray-600 cursor-not-allowed">
             </div>
 
             <div>

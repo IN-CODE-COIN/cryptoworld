@@ -112,7 +112,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Lanza la búsqueda cada vez que cambia el crypto o la fecha
+    //* Lanza la búsqueda cada vez que cambia el crypto o la fecha *//
     cryptoIdInput.addEventListener('change', tryGetPrice);
     dateInput.addEventListener('change', tryGetPrice);
+
+    function updateQuantity() {
+        const amountInput = document.getElementById('amount_usd');
+        const priceInput = document.getElementById('price_usd');
+        const quantityInput = document.getElementById('quantity');
+
+        const amount = parseFloat(amountInput.value);
+        const price = parseFloat(priceInput.value);
+
+        if (!isNaN(amount) && amount > 0 && !isNaN(price) && price > 0) {
+            quantityInput.value = (amount / price).toFixed(8);
+        } else {
+            quantityInput.value = '';
+        }
+    }
+
+    //* Actualiza cantidad al cambiar monto invertido o precio *//
+    document.getElementById('amount_usd').addEventListener('input', updateQuantity);
+    document.getElementById('price_usd').addEventListener('input', updateQuantity);
 });
