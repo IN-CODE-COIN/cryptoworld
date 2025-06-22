@@ -29,12 +29,12 @@
 
             <div>
                 <label for="crypto_id" class="block font-medium text-gray-700">Cripto ID</label>
-                <input type="text" name="crypto_id" id="crypto_id" value="{{ old('crypto_id') }}" required class="mt-1 block w-full rounded border-gray-300" readonly>
+                <input type="text" name="crypto_id" id="crypto_id" value="{{ old('crypto_id') }}" required class="mt-1 block w-full rounded border-gray-300 bg-gray-100 text-gray-600 cursor-not-allowed" readonly>
             </div>
 
             <div>
                 <label for="crypto_name" class="block font-medium text-gray-700">Nombre</label>
-                <input type="text" name="crypto_name" id="crypto_name" value="{{ old('crypto_name') }}" required class="mt-1 block w-full rounded border-gray-300" readonly>
+                <input type="text" name="crypto_name" id="crypto_name" value="{{ old('crypto_name') }}" required class="mt-1 block w-full rounded border-gray-300 bg-gray-100 text-gray-600 cursor-not-allowed" readonly>
             </div>
 
             <div>
@@ -46,23 +46,31 @@
             </div>
 
             <div>
-                <label for="quantity" class="block font-medium text-gray-700">Cantidad</label>
-                <input type="number" step="0.00000001" name="quantity" id="quantity" value="{{ old('quantity') }}" required class="mt-1 block w-full rounded border-gray-300">
+                <label for="date" class="block font-medium text-gray-700">Fecha de la transacción</label>
+                <input type="date" name="date" id="date" value="{{ old('date', date('Y-m-d')) }}" required class="mt-1 block w-full rounded border-gray-300">
+            </div>
+
+            <div>
+                <label for="amount_usd" class="block font-medium text-gray-700">Inversión (USD)</label>
+                <input type="number" step="0.01" name="amount_usd" id="amount_usd" value="{{ old('amount_usd') }}" class="mt-1 block w-full rounded border-gray-300">
             </div>
 
             <div>
                 <label for="price_usd" class="block font-medium text-gray-700">Precio por unidad (USD)</label>
-                <input type="number" step="0.01" name="price_usd" id="price_usd" value="{{ old('price_usd') }}" required class="mt-1 block w-full rounded border-gray-300">
+                <input type="number" step="0.01" name="price_usd" id="price_usd"
+                    value="{{ old('price_usd') }}"
+                    required readonly
+                    class="mt-1 block w-full rounded border-gray-300 bg-gray-100 text-gray-600 cursor-not-allowed">
+            </div>
+
+            <div>
+                <label for="quantity" class="block font-medium text-gray-700">Unidades cryptomoneda</label>
+                <input type="number" step="0.00000001" name="quantity" id="quantity" value="{{ old('quantity') }}" required class="mt-1 block w-full rounded border-gray-300">
             </div>
 
             <div>
                 <label for="fees" class="block font-medium text-gray-700">Costes ($)</label>
                 <input type="number" step="0.01" name="fees" id="fees" value="{{ old('fees') ?? 0 }}" class="mt-1 block w-full rounded border-gray-300">
-            </div>
-
-            <div>
-                <label for="date" class="block font-medium text-gray-700">Fecha de la transacción</label>
-                <input type="date" name="date" id="date" value="{{ old('date', date('Y-m-d')) }}" required class="mt-1 block w-full rounded border-gray-300">
             </div>
 
             <div>
