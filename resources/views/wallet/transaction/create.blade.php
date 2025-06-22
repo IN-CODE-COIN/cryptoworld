@@ -1,6 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Nueva transacción de cripto</h2>
+        <div class="flex items-center justify-between gap-4">
+            <h2 class="font-semibold text-3xl text-gray-800 leading-tight">Nueva Transacción</h2>
+            <a href="{{ route('wallet.index') }}"
+               class="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md text-xs font-medium">
+                ← Volver
+            </a>
+        </div>
     </x-slot>
 
     <div class="py-10 max-w-4xl mx-auto">
@@ -48,7 +54,7 @@
             </div>
 
             <div>
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Registrar transacción</button>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-xs font-medium">Registrar</button>
             </div>
         </form>
     </div>
