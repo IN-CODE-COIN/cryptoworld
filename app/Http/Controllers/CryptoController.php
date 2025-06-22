@@ -69,5 +69,44 @@ class CryptoController extends Controller
         return response()->json($results);
     }
 
+    public function getPrice(Request $request)
+    {
+        $uuid = $request->query('uuid');
+        $timestamp = $request->query('timestamp');
+
+        if (!$uuid || !$timestamp) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Faltan parámetros uuid o timestamp'
+            ], 400);
+        }
+
+        $apiKey = env('COINRANKING_API_KEY');
+
+        if (!$apiKey) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'API key no configurada'
+            ], 500);
+        }
+
+        $url = "https://api.coinranking.com/v2/coin/{$uuid}/price";
+
+        $response = Http::withHeaders([
+            'x-access-token' => $apiKey,
+        ])->get($url, [
+            'timestamp' => $timestamp,
+        ]);
+
+        if (!$response->successful()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error en Coinranking',
+                'body' => $response->body()
+            ], $response->status());
+        }
+
+        return $response->json();
+    }
 
 }

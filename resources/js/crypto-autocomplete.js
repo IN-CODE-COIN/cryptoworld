@@ -62,18 +62,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Formulario transacción
+    // Buscador transacción
     setupAutocomplete({
         inputId: 'search-input-transaction',
         suggestionsId: 'suggestions-transaction',
         onSelect: (li) => {
+            const uuid = li.getAttribute('data-uuid');
             const symbol = li.getAttribute('data-symbol');
             const name = li.getAttribute('data-name');
 
-            // Cambia los inputs visibles y ocultos que uses
-            document.getElementById('crypto_id').value = symbol;
+            document.getElementById('crypto_id').value = uuid;
             document.getElementById('crypto_name').value = name;
             document.getElementById('search-input-transaction').value = `${name} (${symbol})`;
+
+            tryGetPrice();
         }
     });
+
+    function getPriceAtDate(cryptoUuid, dateStr) {
+        if (!cryptoUuid || !dateStr) return;
+
+        const timestamp = Math.floor(new Date(dateStr).getTime() / 1000);
+        const url = `/coin/price?uuid=${cryptoUuid}&timestamp=${timestamp}`;
+
+        fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            if (data?.status === 'success') {
+            const price = parseFloat(data.data.price).toFixed(2);
+            document.getElementById('price_usd').value = price;
+            } else {
+            console.warn('No se pudo obtener el precio', data);
+            document.getElementById('price_usd').value = '';
+            }
+        })
+        .catch(() => {
+            document.getElementById('price_usd').value = '';
+        });
+    }
+
+    const cryptoIdInput = document.getElementById('crypto_id');
+    const dateInput = document.getElementById('date');
+
+    function tryGetPrice() {
+        const cryptoId = cryptoIdInput.value;
+        const date = dateInput.value;
+        if (cryptoId && date) {
+            getPriceAtDate(cryptoId, date);
+        }
+    }
+
+    // Lanza la búsqueda cada vez que cambia el crypto o la fecha
+    cryptoIdInput.addEventListener('change', tryGetPrice);
+    dateInput.addEventListener('change', tryGetPrice);
 });

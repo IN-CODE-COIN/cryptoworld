@@ -60,6 +60,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/pricing', [PricingController::class, 'show'])->name('pricing.index');
 Route::post('/start-trial', [PricingController::class, 'startTrial'])->middleware('auth')->name('start.trial');
 
+//* Ruta precio/fecha *//
+Route::get('/coin/price', [CryptoController::class, 'getPrice'])->name('coin.price');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
