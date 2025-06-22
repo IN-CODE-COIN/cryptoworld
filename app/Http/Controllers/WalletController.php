@@ -42,7 +42,7 @@ class WalletController extends Controller
         //Se hace retirada pero no hay saldo
         if ($data['type'] === 'withdraw') {
             if ($data['amount'] > $currentBalance) {
-                return back()->withInput()->with('error', "Saldo insuficiente. Tu saldo disponible es de €" . number_format($currentBalance, 2));
+                return back()->withInput()->with('error', "Saldo insuficiente. Tu saldo disponible es de $" . number_format($currentBalance, 2));
             }
         }
 
