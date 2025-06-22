@@ -16,7 +16,7 @@
         <div class="bg-white dark:bg-gray-800 shadow rounded p-6 text-center">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Saldo actual</h3>
             <p class="text-3xl text-green-500 font-bold mt-2">${{ number_format($balance, 2) }}</p>
-            <a href="{{ route('wallet.create') }}" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <a href="{{ route('wallet.create') }}" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-xs font-medium">
                 Ingresar / Retirar
             </a>
         </div>
