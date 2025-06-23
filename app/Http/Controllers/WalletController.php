@@ -14,7 +14,6 @@ class WalletController extends Controller
 
         $deposits = $user->fundMovements()->where('type', 'deposito')->sum('amount');
         $withdraws = $user->fundMovements()->where('type', 'retirada')->sum('amount');
-
         $balance = $deposits - $withdraws;
 
         $movements = $user->fundMovements()->orderBy('date', 'desc')->take(5)->get();
@@ -23,19 +22,35 @@ class WalletController extends Controller
             ->where('amount', '>', 0)
             ->get()
             ->map(function ($pos) {
+                $coinUuid = $pos->crypto_id;
+                $cryptoName = $pos->crypto_name;
+
+                // Llama a la API de CoinRanking
+                $response = \Http::withHeaders([
+                    'x-access-token' => env('COINRANKING_API_KEY')
+                ])->get("https://api.coinranking.com/v2/coin/{$coinUuid}");
+
+                $data = $response->json();
+
+                $currentPrice = isset($data['data']['coin']['price']) ? floatval($data['data']['coin']['price']) : 0;
+                $currentValue = $currentPrice * $pos->amount;
+                $profit = $currentValue - $pos->invested_usd;
+                $change = $pos->invested_usd > 0 ? ($profit / $pos->invested_usd) * 100 : 0;
+
                 return (object) [
-                    'symbol' => strtoupper($pos->crypto_name),
+                    'symbol' => strtoupper($cryptoName),
                     'amount' => $pos->amount,
-                    'quantity' => $pos->amount,
+                    'quantity' => $pos->invested_usd,
                     'average_price' => $pos->average_price,
-                    'profit' => 0,
-                    'daily_change' => 0,
-                    'total_change' => 0,
+                    'current_price' => $currentPrice,
+                    'profit' => $profit,
+                    'total_change' => $change,
                 ];
             });
 
         return view('wallet.index', compact('balance', 'user', 'movements', 'positions'));
     }
+
 
     public function create()
     {

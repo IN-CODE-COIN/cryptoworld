@@ -59,6 +59,7 @@ class CryptoTransactionController extends Controller
 
             $position->amount = $newAmount;
             $position->average_price = $newAveragePrice;
+            $position->invested_usd += $grossTotal;
 
             // Movimiento por compra
             FundMovement::create([
@@ -78,6 +79,12 @@ class CryptoTransactionController extends Controller
             }
 
             $position->amount -= $data['quantity'];
+            $position->invested_usd -= $grossTotal;
+
+            if ($position->amount <= 0) {
+                $position->invested_usd = 0;
+                $position->average_price = 0;
+            }
 
             // Actualiza saldo
             $user->balance += $netTotal;
@@ -94,6 +101,7 @@ class CryptoTransactionController extends Controller
             ]);
         }
 
+        $position->invested_usd = max($position->invested_usd, 0);
         $position->save();
 
         // Movimiento por fees (compra o venta)
