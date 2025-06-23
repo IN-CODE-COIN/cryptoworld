@@ -82,7 +82,7 @@
                         <tr class="border-b border-gray-200 dark:border-gray-700">
                             <td class="px-4 py-2">{{ $position->symbol }}</td>
                             <td class="px-4 py-2">${{ number_format($position->quantity, 2) }}</td>
-                            <td class="px-4 py-2">{{ $position->amount }}</td>
+                            <td class="px-4 py-2">{{ number_format($position->amount, 4) }}</td>
                             <td class="px-4 py-2">${{ number_format($position->average_price, 2) }}</td>
                             <td class="px-4 py-2 ${ $position->profit >= 0 ? 'text-green-500' : 'text-red-500' }">
                                 ${{ number_format($position->profit, 2) }}
