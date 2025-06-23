@@ -91,14 +91,16 @@
                 <tbody>
                     @forelse($positions as $position)
                         <tr class="border-b border-gray-200 dark:border-gray-700">
-                            <td class="px-4 py-2">{{ $position->symbol }}</td>
+                            <td class="px-4 py-2 font-semibold">{{ $position->symbol }}</td>
                             <td class="px-4 py-2">${{ number_format($position->quantity, 2) }}</td>
                             <td class="px-4 py-2">{{ number_format($position->amount, 4) }}</td>
                             <td class="px-4 py-2">${{ number_format($position->average_price, 2) }}</td>
-                            <td class="px-4 py-2 ${ $position->profit >= 0 ? 'text-green-500' : 'text-red-500' }">
+                            <td class="px-4 py-2 {{ number_format($position->profit, 2) >= 0 ? 'text-green-500' : 'text-red-500' }}">
                                 ${{ number_format($position->profit, 2) }}
                             </td>
-                            <td class="px-4 py-2">{{ number_format($position->total_change, 2) }}%</td>
+                            <td class="px-4 py-2 {{ $position->total_change >= 0 ? 'text-green-500' : 'text-red-500' }}">
+                                {{ number_format($position->total_change, 2) }}%
+                            </td>
                         </tr>
                     @empty
                         <tr><td colspan="5" class="text-center py-4 text-gray-500">No hay posiciones activas.</td></tr>
