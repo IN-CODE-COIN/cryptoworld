@@ -33,6 +33,9 @@ Route::middleware(['auth'])->group(function () {
     //* Rutas de operaciones *//
     Route::get('/wallet/transaction/create', [CryptoTransactionController::class, 'create'])->name('wallet.transaction.create');
     Route::post('/wallet/transaction', [CryptoTransactionController::class, 'store'])->name('wallet.transaction.store');
+    //* Rutas para editar movimientos *//
+    Route::get('/wallet/moves/edit/{id}', [WalletController::class, 'edit'])->name('wallet.moves.edit');
+    Route::post('/wallet/moves/update/{id}', [WalletController::class, 'update'])->name('wallet.moves.update');
 });
 
 //* Ruta de busqueda de criptomonedas *//

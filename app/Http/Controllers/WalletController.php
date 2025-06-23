@@ -111,4 +111,26 @@ class WalletController extends Controller
         return view('wallet.moves', compact('movements'));
     }
 
+    public function edit($id)
+    {
+        $user = Auth::user();
+        $movement = $user->fundMovements()->findOrFail($id);
+
+        return view('wallet.edit', compact('movement'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->validate([
+            'description' => 'nullable|string|max:255',
+        ]);
+
+        $user = Auth::user();
+        $movement = $user->fundMovements()->findOrFail($id);
+        $movement->description = $data['description'];
+        $movement->save();
+
+        return redirect()->route('wallet.moves')->with('success', 'Descripción actualizada correctamente.');
+    }
+
 }

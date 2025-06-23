@@ -13,10 +13,10 @@
 
     <div class="max-w-4xl mx-auto py-10">
         @if(session('success'))
-            <div class="mb-4 text-green-600">{{ session('success') }}</div>
+            <div class="mb-4 text-green-600 bg-green-100 px-4 py-2 rounded">{{ session('success') }}</div>
         @endif
         @if(session('warning'))
-            <div class="mb-4 text-yellow-600">{{ session('warning') }}</div>
+            <div class="mb-4 text-yellow-600 bg-yellow-100 px-4 py-2 rounded">{{ session('warning') }}</div>
         @endif
 
         <table class="w-full table-auto border text-left">
