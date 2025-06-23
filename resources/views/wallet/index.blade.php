@@ -32,8 +32,8 @@
         <!-- Movimientos recientes -->
         <div class="bg-white dark:bg-gray-800 shadow rounded p-6 col-span-1 md:col-span-2">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Movimientos recientes</h3>
-                <a href="{{ route('wallet.index') }}" class="text-sm text-blue-600 hover:underline">Ver todos</a>
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Últimos 5 movimientos</h3>
+                <a href="{{ route('wallet.moves') }}" class="text-sm text-blue-600 hover:underline">Ver todos</a>
             </div>
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">

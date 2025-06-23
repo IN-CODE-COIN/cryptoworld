@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/wallet', [WalletController::class, 'index'])->name('wallet.index');
     Route::get('/wallet/create', [WalletController::class, 'create'])->name('wallet.create');
     Route::post('/wallet', [WalletController::class, 'store'])->name('wallet.store');
+    Route::get('/wallet/moves', [WalletController::class, 'show'])->name('wallet.moves');
     //* Rutas de operaciones *//
     Route::get('/wallet/transaction/create', [CryptoTransactionController::class, 'create'])->name('wallet.transaction.create');
     Route::post('/wallet/transaction', [CryptoTransactionController::class, 'store'])->name('wallet.transaction.store');

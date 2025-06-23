@@ -17,7 +17,7 @@ class WalletController extends Controller
 
         $balance = $deposits - $withdraws;
 
-        $movements = $user->fundMovements()->orderBy('date', 'desc')->take(10)->get();
+        $movements = $user->fundMovements()->orderBy('date', 'desc')->take(5)->get();
 
         $positions = $user->cryptoPositions()
             ->where('amount', '>', 0)
@@ -77,6 +77,15 @@ class WalletController extends Controller
         ]);
 
         return redirect()->route('wallet.index')->with('success', 'Movimiento registrado correctamente.');
+    }
+
+    public function show()
+    {
+        $user = Auth::user();
+
+        $movements = $user->fundMovements()->orderBy('date', 'desc')->get();
+
+        return view('wallet.moves', compact('movements'));
     }
 
 }
