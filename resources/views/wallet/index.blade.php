@@ -43,32 +43,34 @@
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Últimos 5 movimientos</h3>
                 <a href="{{ route('wallet.moves') }}" class="text-sm text-blue-600 hover:underline">Ver todos</a>
             </div>
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
-                    <tr>
-                        <th class="px-4 py-2">Fecha</th>
-                        <th class="px-4 py-2">Tipo</th>
-                        <th class="px-4 py-2">Cantidad</th>
-                        <th class="px-4 py-2">Descripción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($movements->take(5) as $movement)
-                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                            <td class="px-4 py-2">{{ \Carbon\Carbon::parse($movement->date)->format('d/m/Y') }}</td>
-                            <td class="px-4 py-2">{{ $movement->type === 'deposito' ? 'Depósito' : 'Retirada' }}</td>
-                            <td class="px-4 py-2">
-                                <span class="{{ $movement->type === 'deposito' ? 'text-green-500' : 'text-red-500' }}">
-                                    ${{ number_format($movement->amount, 2) }}
-                                </span>
-                            </td>
-                            <td class="px-4 py-2">{{ $movement->description ?? '-' }}</td>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
+                        <tr>
+                            <th class="px-4 py-2">Fecha</th>
+                            <th class="px-4 py-2">Tipo</th>
+                            <th class="px-4 py-2">Cantidad</th>
+                            <th class="px-4 py-2">Descripción</th>
                         </tr>
-                    @empty
-                        <tr><td colspan="4" class="text-center py-4 text-gray-500">No hay movimientos aún.</td></tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @forelse($movements->take(5) as $movement)
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <td class="px-4 py-2">{{ \Carbon\Carbon::parse($movement->date)->format('d/m/Y') }}</td>
+                                <td class="px-4 py-2">{{ $movement->type === 'deposito' ? 'Depósito' : 'Retirada' }}</td>
+                                <td class="px-4 py-2">
+                                    <span class="{{ $movement->type === 'deposito' ? 'text-green-500' : 'text-red-500' }}">
+                                        ${{ number_format($movement->amount, 2) }}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-2">{{ $movement->description ?? '-' }}</td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="4" class="text-center py-4 text-gray-500">No hay movimientos aún.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Posiciones activas -->
@@ -85,36 +87,38 @@
                     </div>
                 </div>
             </div>
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
-                    <tr>
-                        <th class="px-4 py-2">Cripto</th>
-                        <th class="px-4 py-2">Cantidad</th>
-                        <th class="px-4 py-2">Unidades</th>
-                        <th class="px-4 py-2">Precio Medio</th>
-                        <th class="px-4 py-2">P/G</th>
-                        <th class="px-4 py-2">%</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($positions as $position)
-                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                            <td class="px-4 py-2 font-semibold">{{ $position->symbol }}</td>
-                            <td class="px-4 py-2">${{ number_format($position->quantity, 2) }}</td>
-                            <td class="px-4 py-2">{{ number_format($position->amount, 4) }}</td>
-                            <td class="px-4 py-2">${{ number_format($position->average_price, 2) }}</td>
-                            <td class="px-4 py-2 {{ number_format($position->profit, 2) >= 0 ? 'text-green-500' : 'text-red-500' }}">
-                                ${{ number_format($position->profit, 2) }}
-                            </td>
-                            <td class="px-4 py-2 {{ $position->total_change >= 0 ? 'text-green-500' : 'text-red-500' }}">
-                                {{ number_format($position->total_change, 2) }}%
-                            </td>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
+                        <tr>
+                            <th class="px-4 py-2">Cripto</th>
+                            <th class="px-4 py-2">Cantidad</th>
+                            <th class="px-4 py-2">Unidades</th>
+                            <th class="px-4 py-2">Precio Medio</th>
+                            <th class="px-4 py-2">P/G</th>
+                            <th class="px-4 py-2">%</th>
                         </tr>
-                    @empty
-                        <tr><td colspan="5" class="text-center py-4 text-gray-500">No hay posiciones activas.</td></tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @forelse($positions as $position)
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <td class="px-4 py-2 font-semibold">{{ $position->symbol }}</td>
+                                <td class="px-4 py-2">${{ number_format($position->quantity, 2) }}</td>
+                                <td class="px-4 py-2">{{ number_format($position->amount, 4) }}</td>
+                                <td class="px-4 py-2">${{ number_format($position->average_price, 2) }}</td>
+                                <td class="px-4 py-2 {{ number_format($position->profit, 2) >= 0 ? 'text-green-500' : 'text-red-500' }}">
+                                    ${{ number_format($position->profit, 2) }}
+                                </td>
+                                <td class="px-4 py-2 {{ $position->total_change >= 0 ? 'text-green-500' : 'text-red-500' }}">
+                                    {{ number_format($position->total_change, 2) }}%
+                                </td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="5" class="text-center py-4 text-gray-500">No hay posiciones activas.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </x-app-layout>
