@@ -65,7 +65,18 @@
 
         <!-- Posiciones activas -->
         <div class="bg-white dark:bg-gray-800 shadow rounded p-6 col-span-1 md:col-span-2">
-            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Posiciones activas</h3>
+            <div class="flex justify-between items-start mb-4">
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Posiciones activas</h3>
+                <div class="text-right">
+                    <div class="text-sm text-gray-600 dark:text-gray-300">Pérdidas / Ganancias</div>
+                    <div class="text-lg font-bold {{ $totalProfit >= 0 ? 'text-green-500' : 'text-red-500' }}">
+                        ${{ number_format($totalProfit, 2) }}
+                    </div>
+                    <div class="text-sm {{ $totalChange >= 0 ? 'text-green-500' : 'text-red-500' }}">
+                        {{ number_format($totalChange, 2) }}%
+                    </div>
+                </div>
+            </div>
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
                     <tr>

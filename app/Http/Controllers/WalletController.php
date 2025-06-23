@@ -48,7 +48,15 @@ class WalletController extends Controller
                 ];
             });
 
-        return view('wallet.index', compact('balance', 'user', 'movements', 'positions'));
+        $totalInvested = $positions->sum('quantity');
+        $totalCurrent = $positions->sum(function ($pos) {
+            return $pos->current_price * $pos->amount;
+        });
+
+        $totalProfit = $totalCurrent - $totalInvested;
+        $totalChange = $totalInvested > 0 ? ($totalProfit / $totalInvested) * 100 : 0;
+
+        return view('wallet.index', compact('balance', 'user', 'movements', 'positions', 'totalProfit', 'totalChange'));
     }
 
 
