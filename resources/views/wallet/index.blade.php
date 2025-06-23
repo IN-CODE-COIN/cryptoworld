@@ -10,7 +10,6 @@
     </x-slot>
 
     <div class="py-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-
         <!-- Saldo -->
         <div class="bg-white dark:bg-gray-800 shadow rounded p-6 text-center">
             <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Efectivo</h3>
@@ -31,6 +30,12 @@
 
         <!-- Movimientos recientes -->
         <div class="bg-white dark:bg-gray-800 shadow rounded p-6 col-span-1 md:col-span-2">
+            <!--Mensaje de exito al añadir transacción -->
+            @if(session('success'))
+                <div class="mb-4 text-sm text-green-600 bg-green-100 px-4 py-2 rounded">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Últimos 5 movimientos</h3>
                 <a href="{{ route('wallet.moves') }}" class="text-sm text-blue-600 hover:underline">Ver todos</a>
