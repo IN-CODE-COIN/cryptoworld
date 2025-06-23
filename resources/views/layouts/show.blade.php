@@ -63,27 +63,27 @@
         </div>
 
         {{-- Info general y descripción --}}
-        <div class="flex flex-col md:flex-row gap-6 items-start">
-            <div>
-                @if($coin['description'])
-                    <p class="text-gray-700 mb-4">{{ $coin['description'] }}</p>
-                @endif
+        <div class="mt-6">
+            @if($coin['description'])
+                <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                    {{ $coin['description'] }}
+                </p>
+            @endif
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-800 text-sm">
-                    <p><strong>Market Cap:</strong> ${{ number_format($coin['marketCap']) }}</p>
-                    <p><strong>Volumen 24h:</strong> ${{ number_format($coin['24hVolume']) }}</p>
-                    <p><strong>Máximo histórico:</strong> ${{ number_format($coin['allTimeHigh']['price'], 2) }}</p>
-                    <p><strong>Rank:</strong> #{{ $coin['rank'] }}</p>
-                    <p><strong>Circulación:</strong> {{ number_format($coin['supply']['circulating']) }}</p>
-                    <p><strong>Total supply:</strong> {{ number_format($coin['supply']['total']) }}</p>
-                </div>
-
-                @if($coin['websiteUrl'])
-                    <a href="{{ $coin['websiteUrl'] }}" target="_blank" class="inline-block mt-4 text-blue-600 hover:underline">
-                        🌐 Sitio web oficial
-                    </a>
-                @endif
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-800 dark:text-gray-100 text-sm">
+                <p><strong>Market Cap:</strong> ${{ number_format($coin['marketCap']) }}</p>
+                <p><strong>Volumen 24h:</strong> ${{ number_format($coin['24hVolume']) }}</p>
+                <p><strong>Máximo histórico:</strong> ${{ number_format($coin['allTimeHigh']['price'], 2) }}</p>
+                <p><strong>Rank:</strong> #{{ $coin['rank'] }}</p>
+                <p><strong>Circulación:</strong> {{ number_format($coin['supply']['circulating']) }}</p>
+                <p><strong>Total supply:</strong> {{ number_format($coin['supply']['total']) }}</p>
             </div>
+
+            @if($coin['websiteUrl'])
+                <a href="{{ $coin['websiteUrl'] }}" target="_blank" class="inline-block mt-6 text-blue-600 hover:underline font-medium">
+                    🌐 Sitio web oficial
+                </a>
+            @endif
         </div>
 
         {{-- Enlaces sociales --}}
