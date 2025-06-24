@@ -5,7 +5,7 @@
                 <img src="{{ $coin['iconUrl'] }}" alt="{{ $coin['name'] }}" class="w-10 h-10 md:w-14 md:h-14 object-contain" />
                 {{ $coin['name'] }} ({{ $coin['symbol'] }})
             </h2>
-            <div>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2">
                 <!-- Botón para agregar a la watchlist -->
                 @php
                     $isInWatchlist = in_array($coin['uuid'], $watchlistUuids);
