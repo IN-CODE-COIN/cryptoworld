@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\CryptoPosition;
 use App\Models\CryptoTransaction;
 use App\Models\FundMovement;
+use App\Models\User;
 
 class CryptoTransactionController extends Controller
 {
@@ -74,8 +75,21 @@ class CryptoTransactionController extends Controller
         } else {
             // Venta
             $user = Auth::user();
+            //Busco si la crypto esta en la cartera
+            $position = $user->positions()->where('crypto_id', $data['crypto_id'])->first();
+
+            //Validación en cartera
+            if (!$position) {
+                return back()->withErrors([
+                    'symbol' => 'No tienes esta criptomoneda en tu cartera.'
+                ])->withInput();
+            }
+
+            //Validación de cantidad en cartera
             if ($position->amount < $data['quantity']) {
-                return back()->withErrors(['quantity' => 'No tienes suficientes criptomonedas para esta venta.'])->withInput();
+                return back()->withErrors([
+                    'quantity' => 'No tienes suficientes criptomonedas para esta venta.'
+                ])->withInput();
             }
 
             $position->amount -= $data['quantity'];

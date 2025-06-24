@@ -13,6 +13,16 @@
     </x-slot>
 
     <div class="py-10 max-w-4xl mx-auto">
+        @error('symbol')
+            <div class="mb-4 text-sm text-red-600 bg-red-100 px-4 py-2 rounded">
+                {{ $message }}
+            </div>
+        @enderror
+        @error('quantity')
+            <div class="mb-4 text-sm text-red-600 bg-red-100 px-4 py-2 rounded">
+                {{ $message }}
+            </div>
+        @enderror
         <form action="{{ route('crypto.search') }}" method="GET" class="relative flex items-center space-x-4 mb-8">
             <input
                 type="text"

@@ -76,4 +76,8 @@ class User extends Authenticatable
         return $this->hasMany(CryptoPosition::class);
     }
 
+    public function positions()
+    {
+        return $this->hasMany(CryptoPosition::class);
+    }
 }

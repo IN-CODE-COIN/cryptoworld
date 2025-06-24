@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class CryptoPosition extends Model
 {
+    protected $table = 'crypto_positions';
+    
     protected $fillable = ['user_id', 'crypto_id', 'crypto_name', 'amount', 'average_price', 'invested_usd'];
 
     public function user()
