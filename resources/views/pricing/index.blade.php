@@ -22,42 +22,44 @@
             <div class="mb-4 text-yellow-600 bg-yellow-100 px-4 py-2 rounded">{{ session('warning') }}</div>
         @endif
 
-        <table class="w-full table-auto border text-left">
-            <thead class="bg-gray-100">
-                <tr>
-                    <th class="px-4 py-2">Características</th>
-                    <th class="px-4 py-2">Gratis</th>
-                    <th class="px-4 py-2">Pro</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="border-t">
-                    <td class="px-4 py-2">Búsqueda de criptomonedas</td>
-                    <td class="px-4 py-2">Sin límite</td>
-                    <td class="px-4 py-2">Sin límite</td>
-                </tr>
-                <tr class="border-t">
-                    <td class="px-4 py-2">Actualización en tiempo real</td>
-                    <td class="px-4 py-2">Sí</td>
-                    <td class="px-4 py-2">Sí</td>
-                </tr>
-                <tr class="border-t">
-                    <td class="px-4 py-2">Criptos en Watchlist</td>
-                    <td class="px-4 py-2">5</td>
-                    <td class="px-4 py-2">Sin límite</td>
-                </tr>
-                <tr class="border-t">
-                    <td class="px-4 py-2">Seguimiento de cartera</td>
-                    <td class="px-4 py-2">No</td>
-                    <td class="px-4 py-2">Sí</td>
-                </tr>
-                <tr class="border-t">
-                    <td class="px-4 py-2">Soporte al usuario</td>
-                    <td class="px-4 py-2">Mail</td>
-                    <td class="px-4 py-2">Telefónico - Mail</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="overflow-x-auto">
+            <table class="w-full table-auto border text-left">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2">Características</th>
+                        <th class="px-4 py-2">Gratis</th>
+                        <th class="px-4 py-2">Pro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-t">
+                        <td class="px-4 py-2">Búsqueda de criptomonedas</td>
+                        <td class="px-4 py-2">Sin límite</td>
+                        <td class="px-4 py-2">Sin límite</td>
+                    </tr>
+                    <tr class="border-t">
+                        <td class="px-4 py-2">Actualización en tiempo real</td>
+                        <td class="px-4 py-2">Sí</td>
+                        <td class="px-4 py-2">Sí</td>
+                    </tr>
+                    <tr class="border-t">
+                        <td class="px-4 py-2">Criptos en Watchlist</td>
+                        <td class="px-4 py-2">5</td>
+                        <td class="px-4 py-2">Sin límite</td>
+                    </tr>
+                    <tr class="border-t">
+                        <td class="px-4 py-2">Seguimiento de cartera</td>
+                        <td class="px-4 py-2">No</td>
+                        <td class="px-4 py-2">Sí</td>
+                    </tr>
+                    <tr class="border-t">
+                        <td class="px-4 py-2">Soporte al usuario</td>
+                        <td class="px-4 py-2">Mail</td>
+                        <td class="px-4 py-2">Telefónico - Mail</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="mt-6">
             @auth

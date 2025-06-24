@@ -25,42 +25,44 @@
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Listado de Movimientos</h3>
             </div>
 
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
-                    <tr>
-                        <th class="px-4 py-2">Fecha</th>
-                        <th class="px-4 py-2">Tipo</th>
-                        <th class="px-4 py-2">Cantidad</th>
-                        <th class="px-4 py-2">Descripción</th>
-                        <th class="px-4 py-2">Modificar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($movements as $movement)
-                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                            <td class="px-4 py-2">{{ \Carbon\Carbon::parse($movement->date)->format('d/m/Y') }}</td>
-                            <td class="px-4 py-2">{{ $movement->type === 'deposito' ? 'Depósito' : 'Retirada' }}</td>
-                            <td class="px-4 py-2">
-                                <span class="{{ $movement->type === 'deposito' ? 'text-green-500' : 'text-red-500' }}">
-                                    ${{ number_format($movement->amount, 2) }}
-                                </span>
-                            </td>
-                            <td class="px-4 py-2">{{ $movement->description ?? '-' }}</td>
-                            <td class="px-4 py-2">
-                                <a href="{{ route('wallet.moves.edit', $movement->id) }}" class="text-gray-500 hover:text-blue-600" title="Editar descripción">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 013 3L13 14l-4 1 1-4 8.5-8.5z"/>
-                                    </svg>
-                                </a>
-                            </td>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
+                        <tr>
+                            <th class="px-4 py-2">Fecha</th>
+                            <th class="px-4 py-2">Tipo</th>
+                            <th class="px-4 py-2">Cantidad</th>
+                            <th class="px-4 py-2">Descripción</th>
+                            <th class="px-4 py-2">Modificar</th>
                         </tr>
-                    @empty
-                        <tr><td colspan="4" class="text-center py-4 text-gray-500">No hay movimientos aún.</td></tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @forelse($movements as $movement)
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <td class="px-4 py-2">{{ \Carbon\Carbon::parse($movement->date)->format('d/m/Y') }}</td>
+                                <td class="px-4 py-2">{{ $movement->type === 'deposito' ? 'Depósito' : 'Retirada' }}</td>
+                                <td class="px-4 py-2">
+                                    <span class="{{ $movement->type === 'deposito' ? 'text-green-500' : 'text-red-500' }}">
+                                        ${{ number_format($movement->amount, 2) }}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-2">{{ $movement->description ?? '-' }}</td>
+                                <td class="px-4 py-2">
+                                    <a href="{{ route('wallet.moves.edit', $movement->id) }}" class="text-gray-500 hover:text-blue-600" title="Editar descripción">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M18.5 2.5a2.121 2.121 0 013 3L13 14l-4 1 1-4 8.5-8.5z"/>
+                                        </svg>
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="4" class="text-center py-4 text-gray-500">No hay movimientos aún.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </div>
