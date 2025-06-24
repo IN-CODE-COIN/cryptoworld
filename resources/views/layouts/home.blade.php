@@ -43,7 +43,7 @@
         @endif
 
         <h3 class="text-xl font-bold mb-2 text-center">Top 10 Criptomonedas (Capitalización de Mercado)</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-auto justify-center place-items-center">
+        <div class="flex flex-wrap justify-center gap-3">
             @foreach($topCryptos as $coin)
                 <div class="w-full max-w-sm bg-white border border-gray-200 rounded-xl shadow-sm p-5 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
                     <div class="flex flex-col items-center space-y-3">
