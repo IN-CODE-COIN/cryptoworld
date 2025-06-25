@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'rol',
     ];
 
     /**
@@ -31,6 +32,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at',
+        'created_at',
+        'updated_at',
+        'trial_ends_at',
     ];
 
     /**
@@ -72,11 +77,6 @@ class User extends Authenticatable
     }
 
     public function cryptoPositions()
-    {
-        return $this->hasMany(CryptoPosition::class);
-    }
-
-    public function positions()
     {
         return $this->hasMany(CryptoPosition::class);
     }
