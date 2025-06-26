@@ -26,10 +26,10 @@ La aplicación contiene:
 - Un listado personalizado en `/watchlist` donde podras agregar hasta 5 cryptomonedas o bien sin límite para los usuarios 'pro'
 - Un apartado solo para usuarios 'pro' alojado en `/wallet` donde podrás crear tu propia cartera de cryptomonedas y hacer el seguimiento de la rentabilidad en tiempo real, tanto de cada cryptomoneda como de toda la cartera.
 
-Para realizar esta creación deberás agregar(retirar) saldo a(de) tu cuenta en `/wallet/create` y realizar la compra(venta) de cryptomonedas en `/wallet/transaction/create`.
+   Para realizar esta creación deberás agregar(retirar) saldo a(de) tu cuenta en `/wallet/create` y realizar la compra(venta) de cryptomonedas en `/wallet/transaction/create`.
 
--Todos los movimientos estarán disponibles en `/wallet/moves`
--En `/pricing` se muestran los diferentes planes de la plataforma (gratuito/pro o free trial de 7 días)
+- Todos los movimientos estarán disponibles en `/wallet/moves`
+- En `/pricing` se muestran los diferentes planes de la plataforma (gratuito/pro o free trial de 7 días)
 
 - Una API pública o autenticada en rutas como `/api/users`.
 
