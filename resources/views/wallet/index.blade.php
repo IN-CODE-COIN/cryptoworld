@@ -92,9 +92,10 @@
                     <thead class="text-xs uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-300">
                         <tr>
                             <th class="px-4 py-2">Cripto</th>
-                            <th class="px-4 py-2">Cantidad</th>
+                            <th class="px-4 py-2">Invertido</th>
                             <th class="px-4 py-2">Unidades</th>
                             <th class="px-4 py-2">Precio Medio</th>
+                            <th class="px-4 py-2">Valor</th>
                             <th class="px-4 py-2">P/G</th>
                             <th class="px-4 py-2">%</th>
                         </tr>
@@ -106,6 +107,9 @@
                                 <td class="px-4 py-2">${{ number_format($position->quantity, 2) }}</td>
                                 <td class="px-4 py-2">{{ number_format($position->amount, 4) }}</td>
                                 <td class="px-4 py-2">${{ number_format($position->average_price, 2) }}</td>
+                                <td class="px-4 py-2 {{ number_format($position->totalValue, 2) >=  number_format($position->quantity, 2) ? 'text-green-500' : 'text-red-500' }}">
+                                    ${{ number_format($position->totalValue, 2) }}
+                                </td>
                                 <td class="px-4 py-2 {{ number_format($position->profit, 2) >= 0 ? 'text-green-500' : 'text-red-500' }}">
                                     ${{ number_format($position->profit, 2) }}
                                 </td>

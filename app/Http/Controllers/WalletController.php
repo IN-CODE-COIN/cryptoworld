@@ -45,6 +45,7 @@ class WalletController extends Controller
                     'current_price' => $currentPrice,
                     'profit' => $profit,
                     'total_change' => $change,
+                    'totalValue' => $currentPrice * $pos->amount,
                 ];
             });
 
@@ -55,8 +56,9 @@ class WalletController extends Controller
 
         $totalProfit = $totalCurrent - $totalInvested;
         $totalChange = $totalInvested > 0 ? ($totalProfit / $totalInvested) * 100 : 0;
+        $totalValue = $totalCurrent;
 
-        return view('wallet.index', compact('balance', 'user', 'movements', 'positions', 'totalProfit', 'totalChange'));
+        return view('wallet.index', compact('balance', 'user', 'movements', 'positions', 'totalValue', 'totalProfit', 'totalChange'));
     }
 
 
