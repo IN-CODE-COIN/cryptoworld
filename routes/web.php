@@ -50,7 +50,7 @@ Route::get('/home/{uuid}', [CryptoController::class, 'show'])
 
 //* Ruta de autocompletado *//
 Route::get('/crypto/autocomplete', [CryptoController::class, 'autocomplete'])
-    ->middleware('auth')
+    //->middleware('auth')
     ->name('crypto.autocomplete');
 
 //* Rutas de watchlist *//

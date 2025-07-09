@@ -72,8 +72,10 @@
                 <label for="price_usd" class="block font-medium text-gray-700">Precio por unidad (USD)</label>
                 <input type="number" step="0.01" name="price_usd" id="price_usd"
                     value="{{ old('price_usd') }}"
-                    required readonly
-                    class="mt-1 block w-full rounded border-gray-300 bg-gray-100 text-gray-600 cursor-not-allowed">
+                    required
+                    placeholder=""
+                    class="mt-1 block w-full rounded border-gray-300">
+
             </div>
 
             <div>
