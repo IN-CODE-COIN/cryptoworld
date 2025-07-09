@@ -76,7 +76,7 @@ class CryptoTransactionController extends Controller
             // Venta
             $user = Auth::user();
             //Busco si la crypto esta en la cartera
-            $position = $user->positions()->where('crypto_id', $data['crypto_id'])->first();
+            $position = $user->cryptoPositions()->where('crypto_id', $data['crypto_id'])->first();
 
             //Validación en cartera
             if (!$position) {
