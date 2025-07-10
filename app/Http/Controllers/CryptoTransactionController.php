@@ -13,7 +13,15 @@ class CryptoTransactionController extends Controller
 {
     public function create()
     {
-        return view('wallet.transaction.create');
+        $user = Auth::user();
+
+        $cryptosInWallet = $user
+            ->cryptoPositions()
+            ->select('crypto_id', 'crypto_name')
+            ->groupBy('crypto_id', 'crypto_name')
+            ->get();
+
+        return view('wallet.transaction.create', compact('cryptosInWallet'));
     }
 
     public function store(Request $request)
