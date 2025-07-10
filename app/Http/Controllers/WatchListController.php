@@ -14,10 +14,30 @@ class WatchlistController extends Controller
 
     public function index()
     {
-        $watchlist = Auth::user()->watchlist;
+        $coins = Auth::user()->watchlist;
+
+        $watchlist = $coins->map(function ($coin) {
+            // Llama a CoinRanking para obtener el precio actual
+            $response = \Http::withHeaders([
+                'x-access-token' => env('COINRANKING_API_KEY')
+            ])->get("https://api.coinranking.com/v2/coin/{$coin->coin_uuid}");
+
+            $data = $response->json();
+
+            return (object)[
+                'id' => $coin->id,
+                'name' => $coin->name,
+                'symbol' => $coin->symbol,
+                'icon_url' => $coin->icon_url,
+                'price' => floatval($data['data']['coin']['price'] ?? 0),
+                'change' => floatval($data['data']['coin']['change'] ?? 0),
+                'market_cap' => floatval($data['data']['coin']['marketCap'] ?? 0),
+            ];
+        });
 
         return view('watchlist.index', compact('watchlist'));
     }
+
 
     public function store(Request $request)
     {

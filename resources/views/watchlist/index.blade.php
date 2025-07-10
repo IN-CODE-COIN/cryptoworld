@@ -40,14 +40,14 @@
                     @foreach($watchlist as $coin)
                         <tr class="border-b">
                             <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                            <td class="px-4 py-2"><img src="{{ $coin->icon_url }}" class="w-6 h-6" alt=""></td>
+                            <td class="px-4 py-2"><img src="{{ $coin->icon_url }}" class="w-6 h-6" alt="img {{ $coin->name }}"></td>
                             <td class="px-4 py-2">{{ $coin->name }}</td>
                             <td class="px-4 py-2">{{ $coin->symbol }}</td>
                             <td class="px-4 py-2">${{ number_format($coin->price, 2) }}</td>
                             <td class="px-4 py-2 {{ $coin->change >= 0 ? 'text-green-600' : 'text-red-600' }}">{{ $coin->change }}%</td>
                             <td class="px-4 py-2">${{ number_format($coin->market_cap) }}</td>
                             <td class="px-4 py-2">
-                                <form action="{{ route('watchlist.destroy', $coin) }}" method="POST" onsubmit="return confirm('¿Eliminar esta criptomoneda de tu lista?')">
+                                <form action="{{ route('watchlist.destroy', $coin->id) }}" method="POST" onsubmit="return confirm('¿Eliminar esta criptomoneda de tu lista?')">
                                     @csrf
                                     @method('DELETE')
                                     <button class="text-red-600 hover:underline">Eliminar</button>
